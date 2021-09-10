@@ -1,0 +1,6 @@
+*.*
+!.gitignore
+!*/*.ts
+!*/*.js
+!README.md
+node_modules/
