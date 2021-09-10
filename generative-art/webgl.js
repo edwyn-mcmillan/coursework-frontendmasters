@@ -1,11 +1,9 @@
-// Ensure ThreeJS is in global scope for the 'examples/'
 global.THREE = require("three");
-
-// Include any additional ThreeJS examples below
 require("three/examples/js/controls/OrbitControls");
 
 const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
+const palettes = require("nice-color-palettes");
 
 const settings = {
   animate: true,
@@ -13,7 +11,7 @@ const settings = {
 };
 
 const sketch = ({ context }) => {
-  // Create a renderer
+
   const renderer = new THREE.WebGLRenderer({
     canvas: context.canvas,
   });
@@ -27,31 +25,37 @@ const sketch = ({ context }) => {
   // Setup camera controller
   // const controls = new THREE.OrbitControls(camera, context.canvas);
 
-  // Setup your scene
   const scene = new THREE.Scene();
 
-  // Setup a geometry
-  const geometry = new THREE.SphereGeometry(1, 32, 16);
+  const palette = random.pick(palettes);
 
-  // Setup a material
-  const material = new THREE.MeshBasicMaterial({
-    color: "red",
-    wireframe: true,
-  });
-
-  // Setup a mesh with geometry + material
-  for (let i = 0; i < 10; i++) {
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  for (let i = 0; i < 20; i++) {
+    const material = new THREE.MeshStandardMaterial({
+      color: random.pick(palette),
+      wireframe: false,
+    });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(
       random.range(-1, 1),
       random.range(-1, 1),
       random.range(-1, 1)
     );
-    mesh.scale.multiplyScalar(0.25);
+    mesh.scale.set(
+      random.range(-1, 1),
+      random.range(-1, 1),
+      random.range(-1, 1)
+    );
+    mesh.scale.multiplyScalar(0.5);
     scene.add(mesh);
   }
 
-  // draw each frame
+  scene.add(new THREE.AmbientLight("hsl(0, 0%, 20%)"))
+
+  const light = new THREE.DirectionalLight("white", 1);
+  light.position.set(0, 0, 4);
+  scene.add(light)
+
   return {
     // Handle resize events here
     resize({ pixelRatio, viewportWidth, viewportHeight }) {
