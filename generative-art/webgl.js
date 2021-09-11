@@ -7,6 +7,9 @@ const palettes = require("nice-color-palettes");
 const eases = require("eases");
 const BezierEasing = require("bezier-easing");
 
+const path = require("path");
+const fs = require("fs");
+
 const settings = {
   dimensions: [512, 512],
   fps: 24,
@@ -16,7 +19,6 @@ const settings = {
 };
 
 const sketch = ({ context }) => {
-
   const renderer = new THREE.WebGLRenderer({
     canvas: context.canvas,
   });
@@ -35,12 +37,15 @@ const sketch = ({ context }) => {
   const palette = random.pick(palettes);
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
+
   for (let i = 0; i < 30; i++) {
     const material = new THREE.MeshStandardMaterial({
       color: random.pick(palette),
       wireframe: false,
     });
+
     const mesh = new THREE.Mesh(geometry, material);
+
     mesh.position.set(
       random.range(-0.5, 0.5),
       random.range(-1, 1),
@@ -55,11 +60,11 @@ const sketch = ({ context }) => {
     scene.add(mesh);
   }
 
-  scene.add(new THREE.AmbientLight("hsl(0, 0%, 20%)"))
+  scene.add(new THREE.AmbientLight("hsl(0, 0%, 20%)"));
 
   const light = new THREE.DirectionalLight("white", 1);
   light.position.set(0, 0, 4);
-  scene.add(light)
+  scene.add(light);
 
   const easeFn = BezierEasing(0.82, -0.07, 0.39, 1.1);
 
