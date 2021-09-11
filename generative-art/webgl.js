@@ -4,8 +4,13 @@ require("three/examples/js/controls/OrbitControls");
 const canvasSketch = require("canvas-sketch");
 const random = require("canvas-sketch-util/random");
 const palettes = require("nice-color-palettes");
+const eases = require("eases");
+const BezierEasing = require("bezier-easing");
 
 const settings = {
+  dimensions: [512, 512],
+  fps: 24,
+  duration: 4,
   animate: true,
   context: "webgl",
 };
@@ -56,6 +61,8 @@ const sketch = ({ context }) => {
   light.position.set(0, 0, 4);
   scene.add(light)
 
+  const easeFn = BezierEasing(0.82, -0.07, 0.39, 1.1);
+
   return {
     // Handle resize events here
     resize({ pixelRatio, viewportWidth, viewportHeight }) {
@@ -75,8 +82,10 @@ const sketch = ({ context }) => {
       camera.updateProjectionMatrix();
     },
     // Update & render your scene here
-    render({ time }) {
+    render({ playhead }) {
       // controls.update();
+      const t = Math.sin(playhead * Math.PI);
+      scene.rotation.z = easeFn(t);
       renderer.render(scene, camera);
     },
     // Dispose of events & renderer for cleaner hot-reloading
