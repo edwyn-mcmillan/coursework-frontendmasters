@@ -35,14 +35,14 @@ const sketch = ({ context }) => {
   const palette = random.pick(palettes);
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 30; i++) {
     const material = new THREE.MeshStandardMaterial({
       color: random.pick(palette),
       wireframe: false,
     });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(
-      random.range(-1, 1),
+      random.range(-0.5, 0.5),
       random.range(-1, 1),
       random.range(-1, 1)
     );
