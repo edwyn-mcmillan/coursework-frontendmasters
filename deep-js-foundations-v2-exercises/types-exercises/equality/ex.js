@@ -1,12 +1,12 @@
 const findAll = (target, values) => {
   const result = [];
-  
+
   values.forEach((v) => {
     if (Object.is(target, v)) {
       result.push(v);
-    } else if (target == null && v == null) {
+    } else if (target == null && v == null) { //null and undefined are the same coercively
       result.push(v);
-    } else if (typeof target == "boolean") {
+    } else if (typeof target == "boolean" && typeof v == "boolean") {
       if (target === v) {
         result.push(v);
       }
