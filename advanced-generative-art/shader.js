@@ -36,7 +36,7 @@ const sketch = ({ context }) => {
     uniform vec3 color; //for importing from JS
     uniform float time;
     void main () {
-      gl_FragColor = vec4(vec3(vUv.x + sin(time), vUv.y, vUv.x) * color, 1.0);
+      gl_FragColor = vec4(vec3(vUv.x + sin(time), vUv.y, vUv.x + cos(time)) * color, 1.0);
     }
   `;
 
