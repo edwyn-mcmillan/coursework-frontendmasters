@@ -1,11 +1,12 @@
-function getStudentFromId(id) {
+function getStudentById(id) {
   return studentRecords.find(function matchIdTo(record) {
     return record.id == id;
   });
 }
 
 function printRecords(recordIds) {
-  const records = recordIds.map(getStudentFromId);
+  const records = recordIds.map(getStudentById);
+  
   records.sort(function sortByName(record1, record2) {
     if (record1.name < record2.name) return -1;
     else if (record1.name > record2.name) return 1;
@@ -33,7 +34,7 @@ function paidStudentsToEnroll() {
 
 function remindUnpaid(recordIds) {
   var unpaidIds = recordIds.filter(function notYetPaid(studentId) {
-    var record = getStudentFromId(studentId);
+    var record = getStudentById(studentId);
     return !record.paid;
   });
 
