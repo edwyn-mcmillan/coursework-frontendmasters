@@ -26,6 +26,7 @@ function paidStudentsToEnroll() {
 
   const idsToEnroll = [];
   recordsToEnroll.forEach(function getId(record) {
+    idsToEnroll.push(record.id);
     return record.id;
   });
 
