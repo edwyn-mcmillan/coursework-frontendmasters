@@ -73,12 +73,11 @@ function defineWorkshop() {
         currentEnrollment.push(record.id);
       }
     });
+	printRecords(currentEnrollment);
   }
 
   function remindUnpaidStudents() {
-    var unpaidIds = recordIds.filter(notYetPaid);
-
-    printRecords(unpaidIds);
+    remindUnpaid(currentEnrollment);
   }
 
   function getStudentFromId(studentId) {
